@@ -68,7 +68,7 @@ public class StudentList {
 			}
 			System.out.println("Data Loaded.");
 
-		} else if (args[0].contains("c")) {
+		} else if (args[0].equals("c")) {
 			System.out.println("Loading data ...");
 			try {
 				BufferedReader s = new BufferedReader(
@@ -80,6 +80,13 @@ public class StudentList {
 			} catch (Exception e) {
 			}
 			System.out.println("Data Loaded.");
+
+		} else {
+			System.out.println("Enter 'a' to see the list.");
+			System.out.println("Enter 'r' to see a random students' name.");
+			System.out.println("Enter 'c' to count number of students.");
+			System.out.println("Enter '?StudentName' to find him/her");
+			System.out.println("Enter '+StudentName' to add him/her.");
 		}
 	}
 }
