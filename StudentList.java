@@ -1,4 +1,5 @@
 import java.io.*;
+import java.security.spec.ECFieldF2m;
 import java.text.*;
 import java.util.*;
 
@@ -8,39 +9,28 @@ public class StudentList {
 		// Check arguments
 		if (args[0].equals("a")) {
 			System.out.println("Loading data ...");
-			try {
-				BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String line = bufferedReader.readLine();
-				String studentNames[] = line.split(",");
-				for (String studentName : studentNames) {
-					System.out.println(studentName.trim());
-				}
-			} catch (Exception e) {
+			BufferedReader bufferedReader = readFile("students.txt");
+			String line = readOneLine(bufferedReader);
+			String studentNames[] = line.split(",");
+			for (String studentName : studentNames) {
+				System.out.println(studentName.trim());
 			}
 			System.out.println("Data Loaded.");
 
 		} else if (args[0].equals("r")) {
 			System.out.println("Loading data ...");
-			try {
-				BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String line = bufferedReader.readLine();
-				String studentNames[] = line.split(",");
-				Random random = new Random();
-				int studentNumber = random.nextInt(4);
-				System.out.println(studentNames[studentNumber].trim());
-			} catch (Exception e) {
-			}
+			BufferedReader bufferedReader = readFile("students.txt");
+			String line = readOneLine(bufferedReader);
+			String studentNames[] = line.split(",");
+			Random random = new Random();
+			int studentNumber = random.nextInt(4);
+			System.out.println(studentNames[studentNumber].trim());
 			System.out.println("Data Loaded.");
 
 		} else if (args[0].contains("+")) {
 			System.out.println("Loading data ...");
 			try {
-				BufferedWriter bufferedWriter = new BufferedWriter(
-						new FileWriter("students.txt", true));
+				BufferedWriter bufferedWriter = writeFile("students.txt");
 				String newStudentName = args[0].substring(1);
 				Date date = new Date();
 				String dateFormat_d_M_y = "dd/MM/yyyy-hh:mm:ss a";
@@ -54,31 +44,21 @@ public class StudentList {
 
 		} else if (args[0].contains("?")) {
 			System.out.println("Loading data ...");
-			try {
-				BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String line = bufferedReader.readLine();
-				if (line.contains(args[0].substring(1))) {
-					System.out.println("We found it!");
-				} else {
-					System.out.println("Not found!");
-				}
-			} catch (Exception e) {
+			BufferedReader bufferedReader = readFile("students.txt");
+			String line = readOneLine(bufferedReader);
+			if (line.contains(args[0].substring(1))) {
+				System.out.println("We found it!");
+			} else {
+				System.out.println("Not found!");
 			}
 			System.out.println("Data Loaded.");
 
 		} else if (args[0].equals("c")) {
 			System.out.println("Loading data ...");
-			try {
-				BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String line = bufferedReader.readLine();
-				String[] studentNames = line.split(",");
-				System.out.println(studentNames.length + " word(s) found");
-			} catch (Exception e) {
-			}
+			BufferedReader bufferedReader = readFile("students.txt");
+			String line = readOneLine(bufferedReader);
+			String[] studentNames = line.split(",");
+			System.out.println(studentNames.length + " word(s) found");
 			System.out.println("Data Loaded.");
 
 		} else {
@@ -87,6 +67,33 @@ public class StudentList {
 			System.out.println("Enter 'c' to count number of students.");
 			System.out.println("Enter '?StudentName' to find him/her");
 			System.out.println("Enter '+StudentName' to add him/her.");
+		}
+	}
+
+	static BufferedReader readFile(String fileName) {
+		try {
+			return new BufferedReader(
+					new InputStreamReader(
+							new FileInputStream(fileName)));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	static String readOneLine(BufferedReader bufferedReader) {
+		try {
+			return bufferedReader.readLine();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	static BufferedWriter writeFile(String fileName) {
+		try {
+			return new BufferedWriter(
+					new FileWriter(fileName, true));
+		} catch (Exception e) {
+			return null;
 		}
 	}
 }
