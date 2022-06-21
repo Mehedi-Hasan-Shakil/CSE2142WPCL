@@ -7,82 +7,68 @@ public class StudentList {
 	public static void main(String[] args) {
 
 		// Check arguments
-		if (args[0].equals("a")) {
-			System.out.println("Loading data ...");
-			BufferedReader bufferedReader = readFile("students.txt");
-			String line = readOneLine(bufferedReader);
-			String studentNames[] = line.split(",");
-			for (String studentName : studentNames) {
-				System.out.println(studentName.trim());
+		if (args[0].equals(Constants.showAll)) {
+			System.out.println(Constants.loadData);
+			String studentNames = readFile(Constants.studentList);
+			String names[] = studentNames.split(Constants.comma);
+			for (String name : names) {
+				System.out.println(name.trim());
 			}
-			System.out.println("Data Loaded.");
+			System.out.println(Constants.dataLoaded);
 
-		} else if (args[0].equals("r")) {
-			System.out.println("Loading data ...");
-			BufferedReader bufferedReader = readFile("students.txt");
-			String line = readOneLine(bufferedReader);
-			String studentNames[] = line.split(",");
+		} else if (args[0].equals(Constants.randomName)) {
+			System.out.println(Constants.loadData);
+			String studentNames = readFile(Constants.studentList);
+			String names[] = studentNames.split(Constants.comma);
 			Random random = new Random();
 			int studentNumber = random.nextInt(4);
-			System.out.println(studentNames[studentNumber].trim());
-			System.out.println("Data Loaded.");
+			System.out.println(names[studentNumber].trim());
+			System.out.println(Constants.dataLoaded);
 
-		} else if (args[0].contains("+")) {
-			System.out.println("Loading data ...");
+		} else if (args[0].contains(Constants.addName)) {
+			System.out.println(Constants.loadData);
 			try {
-				BufferedWriter bufferedWriter = writeFile("students.txt");
+				BufferedWriter bufferedWriter = writeFile(Constants.studentList);
 				String newStudentName = args[0].substring(1);
 				Date date = new Date();
-				String dateFormat_d_M_y = "dd/MM/yyyy-hh:mm:ss a";
+				String dateFormat_d_M_y = Constants.dateFormat;
 				DateFormat dateFormat = new SimpleDateFormat(dateFormat_d_M_y);
 				String formatedDate = dateFormat.format(date);
-				bufferedWriter.write(", " + newStudentName + "\nList last updated on " + formatedDate);
+				bufferedWriter.write(Constants.comma + newStudentName + Constants.listUpdateMessage + formatedDate);
 				bufferedWriter.close();
 			} catch (Exception e) {
 			}
-			System.out.println("Data Loaded.");
+			System.out.println(Constants.dataLoaded);
 
-		} else if (args[0].contains("?")) {
-			System.out.println("Loading data ...");
-			BufferedReader bufferedReader = readFile("students.txt");
-			String line = readOneLine(bufferedReader);
-			if (line.contains(args[0].substring(1))) {
-				System.out.println("We found it!");
+		} else if (args[0].contains(Constants.findName)) {
+			System.out.println(Constants.loadData);
+			String studentNames = readFile(Constants.studentList);
+			if (studentNames.contains(args[0].substring(1))) {
+				System.out.println(Constants.foundMessage);
 			} else {
-				System.out.println("Not found!");
+				System.out.println(Constants.notFoundMessage);
 			}
-			System.out.println("Data Loaded.");
+			System.out.println(Constants.dataLoaded);
 
-		} else if (args[0].equals("c")) {
-			System.out.println("Loading data ...");
-			BufferedReader bufferedReader = readFile("students.txt");
-			String line = readOneLine(bufferedReader);
-			String[] studentNames = line.split(",");
-			System.out.println(studentNames.length + " word(s) found");
-			System.out.println("Data Loaded.");
+		} else if (args[0].equals(Constants.countStudents)) {
+			System.out.println(Constants.loadData);
+			String studentNames = readFile(Constants.studentList);
+			String[] names = studentNames.split(Constants.comma);
+			System.out.println(names.length + Constants.wordFoundMessage);
+			System.out.println(Constants.dataLoaded);
 
 		} else {
-			System.out.println("Enter 'a' to see the list.");
-			System.out.println("Enter 'r' to see a random students' name.");
-			System.out.println("Enter 'c' to count number of students.");
-			System.out.println("Enter '?StudentName' to find him/her");
-			System.out.println("Enter '+StudentName' to add him/her.");
+			System.out.println(Constants.warningMessage);
 		}
 	}
 
-	static BufferedReader readFile(String fileName) {
+	static String readFile(String fileName) {
 		try {
-			return new BufferedReader(
+			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(
 							new FileInputStream(fileName)));
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	static String readOneLine(BufferedReader bufferedReader) {
-		try {
-			return bufferedReader.readLine();
+			String studentNames = bufferedReader.readLine();
+			return studentNames;
 		} catch (Exception e) {
 			return null;
 		}
