@@ -51,7 +51,7 @@ public class StudentList {
 			}
 			System.out.println(Constants.dataLoaded);
 
-		} else if (args[0].equals(Constants.countStudents)) {
+		} else if (args[0].equals(Constants.countStudents)) { // count total number of students
 			System.out.println(Constants.loadData);
 			String[] names = readFile(Constants.studentList).split(Constants.comma);
 			System.out.println(names.length + Constants.wordFoundMessage);
