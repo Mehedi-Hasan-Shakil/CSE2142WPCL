@@ -11,7 +11,7 @@ public abstract class Constants {
     public static String wordFoundMessage = " word(s) found";
     public static String dateFormat = "dd/MM/yyyy-hh:mm:ss a";
     public static String listUpdateMessage = "\nList last updated on ";
-    public static String warningMessage = "Usage: a | r | c | +Word | ?Word";
+    public static String warningMessage = "Usage: a | r | c | +StudentName | ?StudentName";
     public static String loadData = "Loading data ...";
     public static String dataLoaded = "Data Loaded.";
 }

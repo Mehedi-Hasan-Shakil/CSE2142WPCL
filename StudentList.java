@@ -9,8 +9,7 @@ public class StudentList {
 		// Check arguments
 		if (args[0].equals(Constants.showAll)) {
 			System.out.println(Constants.loadData);
-			String studentNames = readFile(Constants.studentList);
-			String names[] = studentNames.split(Constants.comma);
+			String names[] = readFile(Constants.studentList).split(Constants.comma);
 			for (String name : names) {
 				System.out.println(name.trim());
 			}
@@ -18,11 +17,9 @@ public class StudentList {
 
 		} else if (args[0].equals(Constants.randomName)) {
 			System.out.println(Constants.loadData);
-			String studentNames = readFile(Constants.studentList);
-			String names[] = studentNames.split(Constants.comma);
+			String names[] = readFile(Constants.studentList).split(Constants.comma);
 			Random random = new Random();
-			int studentNumber = random.nextInt(4);
-			System.out.println(names[studentNumber].trim());
+			System.out.println(names[random.nextInt(4)].trim());
 			System.out.println(Constants.dataLoaded);
 
 		} else if (args[0].contains(Constants.addName)) {
@@ -30,10 +27,8 @@ public class StudentList {
 			try {
 				BufferedWriter bufferedWriter = writeFile(Constants.studentList);
 				String newStudentName = args[0].substring(1);
-				Date date = new Date();
-				String dateFormat_d_M_y = Constants.dateFormat;
-				DateFormat dateFormat = new SimpleDateFormat(dateFormat_d_M_y);
-				String formatedDate = dateFormat.format(date);
+				DateFormat dateFormat = new SimpleDateFormat(Constants.dateFormat);
+				String formatedDate = dateFormat.format(new Date());
 				bufferedWriter.write(Constants.comma + newStudentName + Constants.listUpdateMessage + formatedDate);
 				bufferedWriter.close();
 			} catch (Exception e) {
@@ -52,11 +47,9 @@ public class StudentList {
 
 		} else if (args[0].equals(Constants.countStudents)) {
 			System.out.println(Constants.loadData);
-			String studentNames = readFile(Constants.studentList);
-			String[] names = studentNames.split(Constants.comma);
+			String[] names = readFile(Constants.studentList).split(Constants.comma);
 			System.out.println(names.length + Constants.wordFoundMessage);
 			System.out.println(Constants.dataLoaded);
-
 		} else {
 			System.out.println(Constants.warningMessage);
 		}
@@ -67,8 +60,7 @@ public class StudentList {
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(
 							new FileInputStream(fileName)));
-			String studentNames = bufferedReader.readLine();
-			return studentNames;
+			return bufferedReader.readLine();
 		} catch (Exception e) {
 			return null;
 		}
