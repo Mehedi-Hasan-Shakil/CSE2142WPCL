@@ -37,11 +37,17 @@ public class StudentList {
 
 		} else if (args[0].contains(Constants.findName)) {
 			System.out.println(Constants.loadData);
-			String studentNames = readFile(Constants.studentList);
-			if (studentNames.contains(args[0].substring(1))) {
-				System.out.println(Constants.foundMessage);
+			String[] names = readFile(Constants.studentList).split(Constants.comma);
+			int count = 0;
+			for (int i = 0; i < names.length; i++) {
+				if (names[i].trim().equals(args[0].substring(1))) {
+					count++;
+				}
+			}
+			if (count == 0) {
+				System.out.println(args[0].substring(1) + Constants.notFoundMessage);
 			} else {
-				System.out.println(Constants.notFoundMessage);
+				System.out.println(args[0].substring(1) + Constants.foundMessage + " " + count + " time(s)");
 			}
 			System.out.println(Constants.dataLoaded);
 

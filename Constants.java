@@ -6,8 +6,8 @@ public abstract class Constants {
     public static String findName = "?";
     public static String countStudents = "c";
     public static String comma = ", ";
-    public static String foundMessage = "We found it!";
-    public static String notFoundMessage = "Not found!";
+    public static String foundMessage = " found";
+    public static String notFoundMessage = " not found!";
     public static String wordFoundMessage = " word(s) found";
     public static String dateFormat = "dd/MM/yyyy-hh:mm:ss a";
     public static String listUpdateMessage = "\nList last updated on ";
