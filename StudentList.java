@@ -4,12 +4,10 @@ import java.util.*;
 
 public class StudentList {
 	public static void main(String[] args) {
-
-		// Check arguments
-		if (args.length != 1) {
+		if (args.length != 1) { // Check number of arguments
 			System.out.println(Constants.warningMessage);
 		} else {
-			if (args[0].equals(Constants.showAll)) {
+			if (args[0].equals(Constants.showAll)) { // Show all students name in student.txt file
 				System.out.println(Constants.loadData);
 				String names[] = readFile(Constants.studentList).split(Constants.comma);
 				for (String name : names) {
@@ -17,14 +15,14 @@ public class StudentList {
 				}
 				System.out.println(Constants.dataLoaded);
 
-			} else if (args[0].equals(Constants.randomName)) {
+			} else if (args[0].equals(Constants.randomName)) { // Show a random student name
 				System.out.println(Constants.loadData);
 				String names[] = readFile(Constants.studentList).split(Constants.comma);
 				Random random = new Random();
 				System.out.println(names[random.nextInt(4)].trim());
 				System.out.println(Constants.dataLoaded);
 
-			} else if (args[0].contains(Constants.addName)) {
+			} else if (args[0].contains(Constants.addName)) { // Add a new student
 				System.out.println(Constants.loadData);
 				try {
 					BufferedWriter bufferedWriter = writeFile(Constants.studentList);
@@ -32,12 +30,13 @@ public class StudentList {
 					DateFormat dateFormat = new SimpleDateFormat(Constants.dateFormat);
 					String formatedDate = dateFormat.format(new Date());
 					bufferedWriter.write(Constants.comma + newStudentName + Constants.listUpdateMessage + formatedDate);
+					System.out.println(newStudentName + Constants.addedMessage);
 					bufferedWriter.close();
 				} catch (Exception e) {
 				}
 				System.out.println(Constants.dataLoaded);
 
-			} else if (args[0].contains(Constants.findName)) {
+			} else if (args[0].contains(Constants.findName)) { // find a name along with its occurrances
 				System.out.println(Constants.loadData);
 				String[] names = readFile(Constants.studentList).split(Constants.comma);
 				int count = 0;
@@ -59,7 +58,7 @@ public class StudentList {
 				System.out.println(names.length + Constants.wordFoundMessage);
 				System.out.println(Constants.dataLoaded);
 			} else {
-				System.out.println(Constants.warningMessage);
+				System.out.println(Constants.warningMessage); // Warning: when argument is invalid
 			}
 		}
 	}
